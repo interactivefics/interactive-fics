@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById("submit").addEventListener('click', clickHandler);
+  document.querySelector('button').addEventListener('click', clickHandler);
 }); //instead of onclick="clickHandler()" in popup.html
 
 
