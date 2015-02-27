@@ -7,7 +7,8 @@ function loadReplace()
 chrome.storage.local.get("person", function(value)
 {
 person = value.person;
-walk(document.body);
+if(person != null){walk(document.body);}
+
 }
 )
 }

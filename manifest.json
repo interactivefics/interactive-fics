@@ -1,6 +1,6 @@
 {
 	"manifest_version": 2,
-	"name": "Interactive Fics",
+	"name": "InteractiveFics",
 	"version": "1.0",
 	"description": "Replaces Y/N in Reader Insert/second person fics with a name of your choice.",
 	"browser_action": {
@@ -20,7 +20,10 @@
 			"run_at": "document_end"
 		}
 	],
-	"incognito": "split"
+	"incognito": "split",
+	"background": {
+"page": "popup.html"
+}
 	
 }
 
