@@ -43,34 +43,8 @@ function walk(node)
 function handleText(textNode) 
 {
 	var v = textNode.nodeValue;
+	v = v.replace(/\by\/n\b/ig, person);
 
-	v = v.replace("Y/N", person);
-	v = v.replace("y/n", person);
-	v = v.replace("Y/n", person);
-	v = v.replace("y/N", person);
-	v = v.replace("(Y/N)", person);
-	v = v.replace("(y/n)", person);
-	v = v.replace("(Y/n)", person);
-	v = v.replace("(y/N)", person);
-	v = v.replace("Y/N?", person + "?");
-	v = v.replace("y/n?", person + "?");
-	v = v.replace("Y/n?", person + "?");
-	v = v.replace("y/N?", person + "?");
-	v = v.replace("Y/N!", person + "!");
-	v = v.replace("y/n!", person + "!");
-	v = v.replace("Y/n!", person + "!");
-	v = v.replace("y/N!", person + "!");
-	v = v.replace("(Y/N)?", person + "?");
-	v = v.replace("(y/n)?", person + "?");
-	v = v.replace("(Y/n)?", person + "?");
-	v = v.replace("(y/N)?", person + "?");
-	v = v.replace("(Y/N)!", person + "!");
-	v = v.replace("(y/n)!", person + "!");
-	v = v.replace("(Y/n)!", person + "!");
-	v = v.replace("(y/N)!", person + "!");
-	
-	
-	
 	textNode.nodeValue = v;
 }
 
