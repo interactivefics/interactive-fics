@@ -1,3 +1,11 @@
+var valChange = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig;
+
+chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
+  //This is where the stuff you want from the background page will be
+  valChange = new RegExp(message.stuff, "ig");
+  loadReplace();
+});
+
 var person;
 
 loadReplace();
@@ -42,8 +50,8 @@ function walk(node)
 
 function handleText(textNode) 
 {
-	var v = textNode.nodeValue;
-	v = v.replace(/\by\/n\b/ig, person);
+	var v = textNode.nodeValue;	
+	v = v.replace(valChange, person); //replaces Y/N or other value entered regardless of the case, whether it's in a bracket or not
 
 	textNode.nodeValue = v;
 }
