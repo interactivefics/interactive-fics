@@ -20,6 +20,29 @@ a:hover{
 color: #16a085;
 }
 
+label *{
+	display:block;
+}
+
+.otherWords input{
+	margin-top:0.2em;
+	width:100%;
+}
+.otherWords .other, .otherWords .replaceBy{
+	width:98%;
+}
+.otherWords .change{
+	margin-right:0;
+}
+
+button{
+	border:none;
+	text-transform: uppercase;
+	font-size:0.8em;
+	background-color: #16a085;
+	color:white;
+}
+
 </style>
 <script src="popup.js" type="text/javascript" >
 
@@ -32,7 +55,21 @@ color: #16a085;
 <p><details><summary>Is the author not using Y/N?</summary>
 	<p>Enter the expression the author's using instead:</p>
 	<p><small>(Make sure you already entered a name above. This change will go away if you refresh, so you'll have to enter it again)</small></p>
-	<p><form><input type="text" id="other"><input type="submit" id="change" value="Enter"></form></p>
+	<p><form class="changeForm"><input type="text" name="replaceWord" class="other">
+	<input type="submit" class="change" value="Enter"></form></p>
+</details></p>
+<p><details id="moreWords"><summary>Need to replace something else?</summary>
+	<p><small>(This change will go away when you refresh/go to another page)</small></p>
+	
+	<p><form class="otherWords changeForm">
+			<label><span>Value [e.g L/N, E/C, etc]:</span>
+			<input type="text" name="replaceWord" class="other"></label>
+			<br>
+			<label><span>Replace with:</span>
+			<input type="text" name="replaceWith" class="replaceBy"></label>
+			<input type="submit" class="change" value="Change">
+		</form>
+	</p>
 </details></p>
 <p>
 <details><summary>About</summary>
