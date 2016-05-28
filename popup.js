@@ -1,10 +1,13 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('submit').addEventListener('click', clickHandler);
+  document.getElementById('clear-name').addEventListener('click', function(){ chrome.storage.local.remove("person", chrome.tabs.reload()) } );
   var others = document.getElementsByClassName('changeForm');
   for(var i=0; i<others.length; i++)
   	others[i].addEventListener('submit', otherHandler);
 }); //instead of onclick="clickHandler()" in popup.html
+
+
 
 function otherHandler(){
 	var myInput = this.replaceWord.value;

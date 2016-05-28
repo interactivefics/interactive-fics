@@ -34,13 +34,9 @@ label *{
 .otherWords .change{
 	margin-right:0;
 }
-
-button{
-	border:none;
-	text-transform: uppercase;
-	font-size:0.8em;
-	background-color: #16a085;
-	color:white;
+#clear-name{
+	margin-top:0.5em;
+	width:87%;
 }
 
 </style>
@@ -51,7 +47,8 @@ button{
 </head>
 <body>
 <h1>Enter the name here:</h1>
-<form><input type="text" id="inputTxt" placeholder="To restore, enter 'Y/N'"/><input type="submit" id="submit" value="Change"/></form>
+<form><input type="text" id="inputTxt"/><input type="submit" id="submit" value="Change"/></form>
+<button id="clear-name">Clear Name</button> 
 <p><details><summary>Is the author not using Y/N?</summary>
 	<p>Enter the expression the author's using instead:</p>
 	<p><small>(Make sure you already entered a name above. This change will go away if you refresh, so you'll have to enter it again)</small></p>

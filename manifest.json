@@ -3,8 +3,8 @@
 
 	"manifest_version": 2,
 	"name": "InteractiveFics",
-	"version": "4.0",
-	"description": "Replaces Y/N in Reader Insert/second person fics with a name of your choice.",
+	"version": "4.1",
+	"description": "Replaces Y/N & other variables in Reader Insert/second person fics with words of your choice.",
 	"browser_action": {
 	"default_icon": "icon.png",
 	"default_popup": "popup.html" },
