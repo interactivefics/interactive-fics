@@ -20,11 +20,11 @@ a:hover{
 color: #16a085;
 }
 
-label *{
+label *:not([type="checkbox"]){
 	display:block;
 }
 
-.otherWords input{
+.otherWords input:not([type="checkbox"]){
 	margin-top:0.2em;
 	width:100%;
 }
@@ -36,9 +36,23 @@ label *{
 }
 #clear-name{
 	margin-top:0.5em;
-	width:87%;
+	width:96%;
 }
-
+input[type="text"]{
+	width:70%;
+}
+.strikethrough{
+	text-decoration: line-through;
+}
+.one-saved-item:hover{
+	background-color: #e74c3c;
+	color: white;
+	cursor: pointer;
+}
+.savedItemsList{
+	height:100px;
+	overflow: auto;
+}
 </style>
 <script src="popup.js" type="text/javascript" >
 
@@ -49,14 +63,8 @@ label *{
 <h1>Enter the name here:</h1>
 <form><input type="text" id="inputTxt"/><input type="submit" id="submit" value="Change"/></form>
 <button id="clear-name">Clear Name</button> 
-<p><details><summary>Is the author not using Y/N?</summary>
-	<p>Enter the expression the author's using instead:</p>
-	<p><small>(Make sure you already entered a name above. This change will go away if you refresh, so you'll have to enter it again)</small></p>
-	<p><form class="changeForm"><input type="text" name="replaceWord" class="other">
-	<input type="submit" class="change" value="Enter"></form></p>
-</details></p>
-<p><details id="moreWords"><summary>Need to replace something else?</summary>
-	<p><small>(This change will go away when you refresh/go to another page)</small></p>
+<p><details id="moreWords"><summary>Need to replace something other than Y/N?</summary>
+	<p><small>(This change will go away when you refresh/go to another page unless you check the box next to "Store this replacement")</small></p>
 	
 	<p><form class="otherWords changeForm">
 			<label><span>Value [e.g L/N, E/C, etc]:</span>
@@ -64,9 +72,18 @@ label *{
 			<br>
 			<label><span>Replace with:</span>
 			<input type="text" name="replaceWith" class="replaceBy"></label>
+			<label><input type="checkbox" name="isPerm">Store this replacement</label>
 			<input type="submit" class="change" value="Change">
 		</form>
 	</p>
+</details></p>
+<p>
+<p><details><summary  id="show-saved">STORED REPLACEMENTS</summary>
+	<p>To remove, simply click on a replacement.</p>
+	<div class="savedItemsList">
+		<ul id="theList">
+		</ul>
+	</div>
 </details></p>
 <p>
 <details><summary>About</summary>

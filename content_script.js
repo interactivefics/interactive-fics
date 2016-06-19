@@ -1,16 +1,28 @@
 var valChange = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig;
 var person;
-chrome.storage.local.get("person", function(value){
-	person = value.person;
-	if(person){
-		loadReplace(valChange, person);
+chrome.storage.local.get(null, function(items){
+	for(var key in items){
+		if(items[key]){
+			if(key=="person")
+				loadReplace(valChange, items[key]);
+			else{
+				var s = escapeRegExp(key);
+				var temp = new RegExp(s, "ig");
+				loadReplace(temp, items[key]);
+			}
+		}
 	}
 });
-// loadReplace(valChange);
+
+
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
 
 chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
   //This is where the stuff you want from the background page will be
-  var val = new RegExp(message.stuff, "ig");
+  var s = escapeRegExp(message.stuff);
+  var val = new RegExp(s, "ig");
   if(message.isYN)
   	loadReplace(val, person);
   else

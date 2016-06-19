@@ -3,7 +3,7 @@
 
 	"manifest_version": 2,
 	"name": "InteractiveFics",
-	"version": "4.1",
+	"version": "4.2",
 	"description": "Replaces Y/N & other variables in Reader Insert/second person fics with words of your choice.",
 	"browser_action": {
 	"default_icon": "icon.png",
