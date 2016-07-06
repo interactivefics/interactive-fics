@@ -1,18 +1,20 @@
 var valChange = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig;
 var person;
-chrome.storage.local.get(null, function(items){
-	for(var key in items){
-		if(items[key]){
-			if(key=="person")
-				loadReplace(valChange, items[key]);
-			else{
-				var s = escapeRegExp(key);
-				var temp = new RegExp(s, "ig");
-				loadReplace(temp, items[key]);
+var replaceAll = function (){
+	chrome.storage.local.get(null, function(items){
+		for(var key in items){
+			if(items[key]){
+				if(key=="person")
+					loadReplace(valChange, items[key]);
+				else{
+					var s = escapeRegExp(key);
+					var temp = new RegExp(s, "ig");
+					loadReplace(temp, items[key]);
+				}
 			}
 		}
-	}
-});
+	});
+}
 
 
 function escapeRegExp(str) {
@@ -67,7 +69,7 @@ function handleText(textNode, val, p){
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 var observer = new MutationObserver(function(mutations, observer) {
-    loadReplace(valChange, person);
+    replaceAll();
 });
 
 // define what element should be observed by the observer
@@ -77,3 +79,7 @@ observer.observe(document, {
   childList: true
   //...
 });
+
+//main
+
+replaceAll();
