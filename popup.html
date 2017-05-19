@@ -34,10 +34,23 @@ label *:not([type="checkbox"]){
 .otherWords .change{
 	margin-right:0;
 }
-#clear-name{
+#clear-name, #deactivate{
 	margin-top:0.5em;
 	width:96%;
 }
+#deactivate{
+	background-color: #9b59b6;
+	color:white;
+	border:0px;
+	border-radius:0.5em;
+	transition-duration: 0.5s;
+}
+#deactivate:hover{
+	color: #9b59b6;
+	background-color: white;
+	cursor:pointer;
+}
+
 input[type="text"]{
 	width:70%;
 }
@@ -62,7 +75,7 @@ input[type="text"]{
 <body>
 <h1>Enter the name here:</h1>
 <form><input type="text" id="inputTxt"/><input type="submit" id="submit" value="Change"/></form>
-<button id="clear-name">Clear Name</button> 
+<input type="button" id="clear-name" value="Clear Name"/>
 <p><details id="moreWords"><summary>Need to replace something other than Y/N?</summary>
 	<p><small>(This change will go away when you refresh/go to another page unless you check the box next to "Store this replacement")</small></p>
 	
@@ -89,6 +102,9 @@ input[type="text"]{
 <details><summary>About</summary>
 <a href="http://interactivefics.tumblr.com" target="_blank" title="Official tumblr">Interactive Fics</a> is a free Chrome extension developed by <a href="https://github.com/blaringsilence" target="_blank" title="her github">blaringsilence</a> to improve your online story reading experience. The extension is open source and all source code can be found <a href="https://github.com/blaringsilence/interactive-fics" title="github repo">here.</a>
 </details>
+<br>
+	<input type="button" id="deactivate"/>
+</br>
 <br>
 <a href="http://interactivefics.tumblr.com/ask" target="_blank">Feedback, suggestions and requests.</a></br>
 </p>
