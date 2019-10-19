@@ -1,49 +1,44 @@
-DISABLE_KEY = 'deactivate-this-extension-pls-interactive-fics-yalla-bina';
+DEACTIVATE_KEY = 'deactivate-this-extension-pls-interactive-fics-yalla-bina';
 
-var valChange = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig;
-var person;
-var replaceAll = function (){
-	chrome.storage.local.get(null, function(items){
-		if(items[DISABLE_KEY] !== true){
-			for(var key in items){
-				if(items[key]){
-					if(key=="person")
-						loadReplace(valChange, items[key]);
-					else if(key !== DISABLE_KEY){
-						var s = escapeRegExp(key);
-						var temp = new RegExp(s, "ig");
-						loadReplace(temp, items[key]);
-					}
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	escapeAndReplace(message.input_word, message.replace_value)
+});
+
+const replaceAll = () => {
+	chrome.storage.local.get(null, items => {
+		if (!items[DEACTIVATE_KEY]) {
+			for (var key in itmes) {
+				if (key == 'person') {
+					const regexp_y_n = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig
+					replace(regexp_y_n, items[key])
+				} else if (key !== DEACTIVATE_KEY) {
+					escapeAndReplace(key, items[key])
 				}
 			}
 		}
-	});
+	})
 }
 
-
-function escapeRegExp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+const escapeAndReplace = (input_word, replace_value) => {
+	const input_word_escaped = escapeRegExp(input_word)
+	const regexp_input_word = new RegExp(input_word_escaped, "ig")
+	replace(regexp_input_word, replace_value)
 }
 
-chrome.extension.onMessage.addListener(function(message,sender,sendResponse){
-  var s = escapeRegExp(message.stuff);
-  var val = new RegExp(s, "ig");
-  if(message.isYN)
-  	loadReplace(val, person);
-  else
-  	if(message.replaceVal){
-  		loadReplace(val, message.replaceVal);
-  	}
-});
+const escapeRegExp = (str) => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 
-
-function loadReplace(rep, p){
-	chrome.storage.local.get(DISABLE_KEY, function(obj){
-		var enabled = obj[DISABLE_KEY] !== true;
-		if(p!=null && enabled){
-			walk(document.body, rep, p);
+const replace = (input_word, replace_value) => {
+	chrome.storage.local.get(DEACTIVATE_KEY, obj => {
+		if (replace_value && !obj[DEACTIVATE_KEY]) {
+			walk(document.body, input_word, replace_value)
 		}
-	});
+	})
+}
+
+const replaceText = (textNode, input_word, replace_value) => {
+	const node_value = textNode.nodeValue
+	node_value = node_value.replace(input_word, replace_value)
+	textNode.nodeValue = node_value
 }
 
 function walk(node, v, p){
@@ -62,15 +57,9 @@ function walk(node, v, p){
 			}
 			break;
 		case 3: // Text node
-			handleText(node, v, p);
+			replaceText(node, v, p);
 			break;
 	}
 }
 
-function handleText(textNode, val, p){
-	var v = textNode.nodeValue;	
-	v = v.replace(val, p); //replaces Y/N or other value entered regardless of the case, whether it's in a bracket or not
-	textNode.nodeValue = v;
-}
-
-replaceAll();
+replaceAll()

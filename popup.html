@@ -1,116 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
-<style type="text/css">
-body {
-background-color: white;
-color: #16a085;
-width: 250px;
-padding:10px;
-font-family: 'Play', sans-serif;
-}
-h1 {
-font-size: 16px;
-}
-a{
-color: #e67e22;
-}
-a:hover{
-color: #16a085;
-}
-
-label *:not([type="checkbox"]){
-	display:block;
-}
-
-.otherWords input:not([type="checkbox"]){
-	margin-top:0.2em;
-	width:100%;
-}
-.otherWords .other, .otherWords .replaceBy{
-	width:98%;
-}
-.otherWords .change{
-	margin-right:0;
-}
-#clear-name, #deactivate{
-	margin-top:0.5em;
-	width:96%;
-}
-#deactivate{
-	background-color: #9b59b6;
-	color:white;
-	border:0px;
-	border-radius:0.5em;
-	transition-duration: 0.5s;
-}
-#deactivate:hover{
-	color: #9b59b6;
-	background-color: white;
-	cursor:pointer;
-}
-
-input[type="text"]{
-	width:70%;
-}
-.strikethrough{
-	text-decoration: line-through;
-}
-.one-saved-item:hover{
-	background-color: #e74c3c;
-	color: white;
-	cursor: pointer;
-}
-.savedItemsList{
-	height:100px;
-	overflow: auto;
-}
-</style>
-<script src="popup.js" type="text/javascript" >
-
-</script>
-
-</head>
-<body>
-<h1>Enter the name here:</h1>
-<form><input type="text" id="inputTxt"/><input type="submit" id="submit" value="Change"/></form>
-<input type="button" id="clear-name" value="Clear Name"/>
-<p><details id="moreWords"><summary>Need to replace something other than Y/N?</summary>
-	<p><small>(This change will go away when you refresh/go to another page unless you check the box next to "Store this replacement")</small></p>
-	
-	<p><form class="otherWords changeForm">
-			<label><span>Value [e.g L/N, E/C, etc]:</span>
-			<input type="text" name="replaceWord" class="other"></label>
-			<br>
-			<label><span>Replace with:</span>
-			<input type="text" name="replaceWith" class="replaceBy"></label>
-			<label><input type="checkbox" name="isPerm">Store this replacement</label>
-			<input type="submit" class="change" value="Change">
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+		<link href='popup.css' rel='stylesheet' type='text/css'>
+		<script src="popup.js" type="text/javascript"></script>
+	</head>
+	<body>
+	<div id="all-but-deactivate-wrapper">
+		<h1>Enter the name here:</h1>
+		<form id="change-name-form">
+			<input type="text" id="change-name-form-text"/>
+			<input type="submit" value="Change"/>
 		</form>
-	</p>
-</details></p>
-<p>
-<p><details><summary  id="show-saved">STORED REPLACEMENTS</summary>
-	<p>To remove, simply click on a replacement. To change, re-enter in the previous section.</p>
-	<div class="savedItemsList">
-		<ul id="theList">
-		</ul>
+		<form id="clear-name-form">
+			<input type="submit" id="clear-name" value="Clear Name"/>
+		</form>
+		<details>
+			<summary>Need to replace something other than Y/N?</summary>
+			<p><small>This change will go away when you refresh/go to another page unless you check the box next to "Store this replacement".</small></p>
+			<p>
+				<form id="replace-other-words-form" class="other-words">
+					<label>
+						<span>Value (e.g. L/N, E/C, etc):</span>
+						<input type="text" id="replace-word" class="other"/>
+					</label>
+					<br>
+					<label>
+						<span>Replace with:</span>
+						<input type="text" id="replace-with" class="replaceBy"/>
+					</label>
+					<label>
+						<input type="checkbox" id="is-perm">Store this replacement
+					</label>
+					<input type="submit" class="change" value="Change">
+				</form>
+			</p>
+		</details>
+		<details>
+			<summary  id="show-saved">Stored Replacements</summary>
+			<p><small>To remove, simply click on a replacement. To change, re-enter in the previous section.</small></p>
+			<div class="saved-items-list-wrapper">
+				<ul id="saved-items-list">
+				</ul>
+			</div>
+		</details>
+		<details>
+			<summary>About</summary>
+			<a href="http://interactivefics.tumblr.com" target="_blank" title="Official site">Interactive Fics</a> is a free Chrome extension built to improve your online story reading experience. The extension is open source and all source code can be found <a href="https://github.com/interactivefics/interactive-fics" target="_blank" title="github repo">here.</a>
+		</details>
 	</div>
-</details></p>
-<p>
-<details><summary>About</summary>
-<a href="http://interactivefics.tumblr.com" target="_blank" title="Official tumblr">Interactive Fics</a> is a free Chrome extension developed by <a href="https://github.com/blaringsilence" target="_blank" title="her github">blaringsilence</a> to improve your online story reading experience. The extension is open source and all source code can be found <a href="https://github.com/blaringsilence/interactive-fics" title="github repo">here.</a>
-</details>
-<br>
-	<input type="button" id="deactivate"/>
-</br>
-<br>
-<a href="http://interactivefics.tumblr.com/ask" target="_blank">Feedback, suggestions and requests.</a></br>
-</p>
-
-
-
-
-</body>
+		<input type="button" id="deactivate"/>
+		<a href="http://interactivefics.tumblr.com/ask" target="_blank">Feedback, suggestions and requests.</a></br>
+	</body>
 </html>
