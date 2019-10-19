@@ -24,9 +24,12 @@ const replaceAll = () => {
 }
 
 const escapeAndReplace = (input_word, replace_value, case_sensitive) => {
-	const input_word_escaped = escapeRegExp(input_word.trim())
+	let input_word_escaped = escapeRegExp(input_word.trim())
 	const flags = case_sensitive ? "g" : "ig"
-	const regexp_input_word = new RegExp(`\\b${input_word_escaped}\\b`, flags)
+	if (!input_word_escaped.startsWith('\\')) {
+		input_word_escaped = `\\b${input_word_escaped}\\b`
+	}
+	const regexp_input_word = new RegExp(input_word_escaped, flags)
 	replace(regexp_input_word, replace_value)
 }
 
