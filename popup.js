@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('change-name-form').addEventListener('submit', changeName)
 	document.getElementById('clear-name-form').addEventListener('submit', clearName)
 	document.getElementById('replace-other-words-form').addEventListener('submit', replaceOther)
+	document.getElementById('refresh-replacements-form').addEventListener('submit', refreshReplacements)
 	document.getElementById('show-saved').addEventListener('click', loadSaved)
 	document.getElementById('deactivate').addEventListener('click', toggleDeactivate)
 
@@ -46,6 +47,16 @@ const replaceOther = () => {
 				})
 		})
 	}
+}
+
+const refreshReplacements = () => {
+	chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+		chrome.tabs.sendMessage(
+			tabs[0].id,
+			{
+				refresh: true
+			})
+	})
 }
 
 const loadSaved = () => {

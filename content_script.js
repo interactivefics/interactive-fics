@@ -1,7 +1,11 @@
 DEACTIVATE_KEY = 'deactivate-this-extension-pls-interactive-fics-yalla-bina';
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	escapeAndReplace(message.input_word, message.replace_value, message.case_sensitive)
+	if ('input_word' in message){
+		escapeAndReplace(message.input_word, message.replace_value, message.case_sensitive)
+	} else {
+		replaceAll()
+	}
 });
 
 const replaceAll = () => {

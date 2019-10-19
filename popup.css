@@ -30,10 +30,23 @@ label *:not([type="checkbox"]){
 .other-words .change{
 	margin-right:0;
 }
-#clear-name, #deactivate{
+#clear-name, #deactivate, #refresh-replacements{
 	margin-top:0.5em;
 	width:96%;
 }
+
+#refresh-replacements {
+	margin-top: 1.5em;
+	font-size: 1.005em;
+	background-color: #D9B08C;
+	border-radius: 0.5em;
+	color: white;
+}
+
+#refresh-replacements:hover {
+	color: black;
+}
+
 #deactivate{
 	background-color: #116466;
 	color:white;
