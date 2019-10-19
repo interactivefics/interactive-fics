@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
 const changeName = () => {
 	const person = document.getElementById('change-name-form-text').value
 	if (person) {
-		chrome.storage.local.set({'person': person}, chrome.tabs.reload())
+		chrome.storage.sync.set({'person': person}, chrome.tabs.reload())
 	}
 }
 
 const clearName = () => {
-	chrome.storage.local.remove('person', chrome.tabs.reload())
+	chrome.storage.sync.remove('person', chrome.tabs.reload())
 }
 
 const replaceOther = () => {
@@ -33,7 +33,7 @@ const replaceOther = () => {
 			const obj = {}
 			obj[input_word] = replacement
 			obj[`${input_word}_case_sensitive`] = is_case_sensitive
-			chrome.storage.local.set(obj)
+			chrome.storage.sync.set(obj)
 		}
 
 		chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
@@ -49,14 +49,16 @@ const replaceOther = () => {
 }
 
 const loadSaved = () => {
-	chrome.storage.local.get(null, items => {
+	chrome.storage.sync.get(null, items => {
 		const list = document.getElementById('saved-items-list')
 		list.innerHTML = ''
 		let hasItems = false
 		for (var key in items) {
-			if (key !== DEACTIVATE_KEY) {
+			if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
 				const label = key === 'person' ? 'Y/N' : key
-				const representative = `${label} -> ${items[key]}`
+				const case_sensitive = !!items[`${key}_case_sensitive`]
+				const case_sensitive_string = case_sensitive ? 'case sensitive' : 'not case sensitive'
+				const representative = `${label} -> ${items[key]} (${case_sensitive_string})`
 				const list_item = createListItem(key, representative, 'one-saved-item')
 				list.appendChild(list_item)
 				hasItems = true
@@ -75,7 +77,7 @@ const createListItem = (id, text, className) => {
 	list_node.className = className
 	list_node.id = id
 	list_node.addEventListener('click', () => {
-		chrome.storage.local.remove(id)
+		chrome.storage.sync.remove(id)
 		list_node.className += ' strikethrough'
 	})
 	return list_node
@@ -83,7 +85,7 @@ const createListItem = (id, text, className) => {
 
 
 const setDeactivateKey = () => {
-	chrome.storage.local.get(DEACTIVATE_KEY, obj => {
+	chrome.storage.sync.get(DEACTIVATE_KEY, obj => {
 		const is_deactivated = obj[DEACTIVATE_KEY]
 		toggleDeactivateLabel(is_deactivated)
 
@@ -107,16 +109,16 @@ const toggleDeactivateLabel = (reactivateBool) => {
 }
 
 const toggleDeactivate = () => {
-	chrome.storage.local.get(DEACTIVATE_KEY, obj => {
+	chrome.storage.sync.get(DEACTIVATE_KEY, obj => {
 		const was_deactivated = obj[DEACTIVATE_KEY]
 		toggleDeactivateLabel(!was_deactivated)
 
 		if (was_deactivated) {
-			chrome.storage.local.remove(DEACTIVATE_KEY)
+			chrome.storage.sync.remove(DEACTIVATE_KEY)
 		} else {
 			const new_object = {}
 			new_object[DEACTIVATE_KEY] = true
-			chrome.storage.local.set(new_object)
+			chrome.storage.sync.set(new_object)
 		}
 
 		chrome.tabs.reload()

@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 const replaceAll = () => {
-	chrome.storage.local.get(null, items => {
+	chrome.storage.sync.get(null, items => {
 		if (!items[DEACTIVATE_KEY]) {
 			for (var key in items) {
 				if (key == 'person') {
@@ -29,7 +29,7 @@ const escapeAndReplace = (input_word, replace_value, case_sensitive) => {
 const escapeRegExp = (str) => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 
 const replace = (input_word, replace_value) => {
-	chrome.storage.local.get(DEACTIVATE_KEY, obj => {
+	chrome.storage.sync.get(DEACTIVATE_KEY, obj => {
 		if (replace_value && !obj[DEACTIVATE_KEY]) {
 			walk(document.body, input_word, replace_value)
 		}
