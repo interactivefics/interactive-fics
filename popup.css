@@ -21,10 +21,10 @@ label *:not([type="checkbox"]){
 }
 
 .other-words input:not([type="checkbox"]){
-	margin-top:0.2em;
+	margin-top:0.5em;
 	width:100%;
 }
-.other-words .other, .other-words .replaceBy{
+.other-words .other, .other-words .replace-with{
 	width:98%;
 }
 .other-words .change{

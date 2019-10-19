@@ -1,7 +1,7 @@
 DEACTIVATE_KEY = 'deactivate-this-extension-pls-interactive-fics-yalla-bina';
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	escapeAndReplace(message.input_word, message.replace_value)
+	escapeAndReplace(message.input_word, message.replace_value, message.case_sensitive)
 });
 
 const replaceAll = () => {
@@ -11,17 +11,18 @@ const replaceAll = () => {
 				if (key == 'person') {
 					const regexp_y_n = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig
 					replace(regexp_y_n, items[key])
-				} else if (key !== DEACTIVATE_KEY) {
-					escapeAndReplace(key, items[key])
+				} else if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
+					escapeAndReplace(key, items[key], items[`${key}_case_sensitive`])
 				}
 			}
 		}
 	})
 }
 
-const escapeAndReplace = (input_word, replace_value) => {
+const escapeAndReplace = (input_word, replace_value, case_sensitive) => {
 	const input_word_escaped = escapeRegExp(input_word.trim())
-	const regexp_input_word = new RegExp(`\\b${input_word_escaped}\\b`, "ig")
+	const flags = case_sensitive ? "g" : "ig"
+	const regexp_input_word = new RegExp(`\\b${input_word_escaped}\\b`, flags)
 	replace(regexp_input_word, replace_value)
 }
 

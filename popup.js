@@ -27,10 +27,12 @@ const clearName = () => {
 const replaceOther = () => {
 	const input_word = document.getElementById('replace-word').value
 	const replacement = document.getElementById('replace-with').value
+	const is_case_sensitive = document.getElementById('is-case-sensitive').checked
 	if (input_word && replacement) {
 		if (document.getElementById('is-perm').checked) {
 			const obj = {}
 			obj[input_word] = replacement
+			obj[`${input_word}_case_sensitive`] = is_case_sensitive
 			chrome.storage.local.set(obj)
 		}
 
@@ -39,7 +41,8 @@ const replaceOther = () => {
 				tabs[0].id,
 				{
 					input_word: input_word,
-					replace_value: replacement
+					replace_value: replacement,
+					case_sensitive: is_case_sensitive
 				})
 		})
 	}
