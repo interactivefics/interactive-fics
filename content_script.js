@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 const replaceAll = () => {
 	chrome.storage.local.get(null, items => {
 		if (!items[DEACTIVATE_KEY]) {
-			for (var key in itmes) {
+			for (var key in items) {
 				if (key == 'person') {
 					const regexp_y_n = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig
 					replace(regexp_y_n, items[key])
@@ -20,8 +20,8 @@ const replaceAll = () => {
 }
 
 const escapeAndReplace = (input_word, replace_value) => {
-	const input_word_escaped = escapeRegExp(input_word)
-	const regexp_input_word = new RegExp(input_word_escaped, "ig")
+	const input_word_escaped = escapeRegExp(input_word.trim())
+	const regexp_input_word = new RegExp(`\\b${input_word_escaped}\\b`, "ig")
 	replace(regexp_input_word, replace_value)
 }
 
@@ -36,7 +36,7 @@ const replace = (input_word, replace_value) => {
 }
 
 const replaceText = (textNode, input_word, replace_value) => {
-	const node_value = textNode.nodeValue
+	let node_value = textNode.nodeValue
 	node_value = node_value.replace(input_word, replace_value)
 	textNode.nodeValue = node_value
 }
