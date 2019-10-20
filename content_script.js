@@ -9,18 +9,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 const replaceAll = () => {
-	chrome.storage.sync.get(null, items => {
-		if (!items[DEACTIVATE_KEY]) {
-			for (var key in items) {
-				if (key == 'person') {
-					const regexp_y_n = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig
-					replace(regexp_y_n, items[key])
-				} else if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
-					escapeAndReplace(key, items[key], items[`${key}_case_sensitive`])
-				}
+	chrome.storage.sync.get(null, replaceAllInStorage)
+	chrome.storage.local.get(null, replaceAllInStorage)
+}
+
+const replaceAllInStorage = (items) => {
+	if (!items[DEACTIVATE_KEY]) {
+		for (var key in items) {
+			if (key == 'person') {
+				const regexp_y_n = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig
+				replace(regexp_y_n, items[key])
+			} else if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
+				escapeAndReplace(key, items[key], items[`${key}_case_sensitive`])
 			}
 		}
-	})
+	}
 }
 
 const escapeAndReplace = (input_word, replace_value, case_sensitive) => {
