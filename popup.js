@@ -60,25 +60,24 @@ const refreshReplacements = () => {
 }
 
 const loadSaved = () => {
-	chrome.storage.sync.get(null, items => {
-		const list = document.getElementById('saved-items-list')
-		list.innerHTML = ''
-		let hasItems = false
-		for (var key in items) {
-			if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
-				const label = key === 'person' ? 'Y/N' : key
-				const case_sensitive = !!items[`${key}_case_sensitive`]
-				const case_sensitive_string = case_sensitive ? 'case sensitive' : 'not case sensitive'
-				const representative = `${label} -> ${items[key]} (${case_sensitive_string})`
-				const list_item = createListItem(key, representative, 'one-saved-item')
-				list.appendChild(list_item)
-				hasItems = true
-			}
+	const list = document.getElementById('saved-items-list')
+	list.innerHTML = ''
+	chrome.storage.sync.get(null, loadSavedItems)
+	chrome.storage.local.get(null, loadSavedItems)
+}
+
+const loadSavedItems = (items) => {
+	const list = document.getElementById('saved-items-list')
+	for (var key in items) {
+		if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
+			const label = key === 'person' ? 'Y/N' : key
+			const case_sensitive = !!items[`${key}_case_sensitive`]
+			const case_sensitive_string = case_sensitive ? 'case sensitive' : 'not case sensitive'
+			const representative = `${label} -> ${items[key]} (${case_sensitive_string})`
+			const list_item = createListItem(key, representative, 'one-saved-item')
+			list.appendChild(list_item)
 		}
-		if (!hasItems) {
-			list.innerHTML = '<small>No stored replacements yet!</small>'
-		}
-	})
+	}
 }
 
 const createListItem = (id, text, className) => {
