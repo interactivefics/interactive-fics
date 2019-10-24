@@ -23,6 +23,7 @@ const changeName = () => {
 
 const clearName = () => {
 	chrome.storage.sync.remove('person', chrome.tabs.reload())
+	chrome.storage.local.remove('person', chrome.tabs.reload())
 }
 
 const replaceOther = () => {
@@ -62,11 +63,13 @@ const refreshReplacements = () => {
 const loadSaved = () => {
 	const list = document.getElementById('saved-items-list')
 	list.innerHTML = ''
-	chrome.storage.sync.get(null, loadSavedItems)
-	chrome.storage.local.get(null, loadSavedItems)
+	chrome.storage.sync.get(null, loadSavedItemsWrapper(false))
+	chrome.storage.local.get(null, loadSavedItemsWrapper(true))
 }
 
-const loadSavedItems = (items) => {
+const loadSavedItemsWrapper = isLocal => items => loadSavedItems(items, isLocal)
+
+const loadSavedItems = (items, isLocal) => {
 	const list = document.getElementById('saved-items-list')
 	for (var key in items) {
 		if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
@@ -74,20 +77,24 @@ const loadSavedItems = (items) => {
 			const case_sensitive = !!items[`${key}_case_sensitive`]
 			const case_sensitive_string = case_sensitive ? 'case sensitive' : 'not case sensitive'
 			const representative = `${label} -> ${items[key]} (${case_sensitive_string})`
-			const list_item = createListItem(key, representative, 'one-saved-item')
+			const list_item = createListItem(key, representative, 'one-saved-item', isLocal)
 			list.appendChild(list_item)
 		}
 	}
 }
 
-const createListItem = (id, text, className) => {
+const createListItem = (id, text, className, isLocal) => {
 	const text_node = document.createTextNode(text)
 	const list_node = document.createElement('LI')
 	list_node.appendChild(text_node)
 	list_node.className = className
 	list_node.id = id
 	list_node.addEventListener('click', () => {
-		chrome.storage.sync.remove(id)
+		if (isLocal) {
+			chrome.storage.local.remove(id)
+		} else {
+			chrome.storage.sync.remove(id)
+		}
 		list_node.className += ' strikethrough'
 	})
 	return list_node
