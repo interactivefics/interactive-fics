@@ -27,10 +27,14 @@ const replaceAllInStorage = (items) => {
 }
 
 const escapeAndReplace = (input_word, replace_value, case_sensitive) => {
+	if (input_word.length == 0) { return; }
 	let input_word_escaped = escapeRegExp(input_word.trim())
 	const flags = case_sensitive ? "g" : "ig"
-	if (!input_word_escaped.startsWith('\\')) {
-		input_word_escaped = `\\b${input_word_escaped}\\b`
+	if (input_word_escaped[0].match(/[a-z]/i)) {
+		input_word_escaped = `\\b${input_word_escaped}`
+	}
+	if (input_word_escaped[input_word_escaped.length - 1].match((/[a-z]/i))) {
+		input_word_escaped = `${input_word_escaped}\\b`
 	}
 	const regexp_input_word = new RegExp(input_word_escaped, flags)
 	replace(regexp_input_word, replace_value)
