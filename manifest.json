@@ -1,14 +1,18 @@
 {
-  "update_url": "https://clients2.google.com/service/update2/crx",
   "manifest_version": 2,
   "name": "InteractiveFics",
   "author": "mariamrf",
   "version": "5.1.0",
   "description": "Replaces Y/N & other variables in Reader Insert/second person fics with words of your choice.",
   "browser_action": {
-  	"default_title": "InteractiveFics",
+    "default_title": "InteractiveFics",
     "default_icon": "icon.png",
     "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{e0a2a539-3ada-4b8a-bf17-e16d1055de4f}"
+    }
   },
   "permissions": [
     "storage",
@@ -30,7 +34,6 @@
       ]
     }
   ],
-  "incognito": "split",
   "background": {
     "page": "popup.html"
   },
