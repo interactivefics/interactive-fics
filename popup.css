@@ -1,7 +1,7 @@
 body {
 	background-color: white;
 	color: #2C3531;
-	width: 250px;
+	width: 270px;
 	padding:10px;
 	font-family: 'Rubik', sans-serif;
 }
@@ -9,11 +9,11 @@ h1 {
 	font-size: 16px;
 }
 a{
-	color: #D9B08C;
+	color: #51A99C;
 	transition-duration: 0.5s;
 }
 a:hover{
-	color: #16a085;
+	color: #1E7669;
 }
 
 label *:not([type="checkbox"]){
@@ -30,35 +30,34 @@ label *:not([type="checkbox"]){
 .other-words .change{
 	margin-right:0;
 }
-#clear-name, #deactivate, #refresh-replacements{
+.change {
+	border-color: rgb(49, 47, 47);
+	border-width: 1px;
+	border-radius: 0.3em;
+	transition-duration: 0.3s;
+}
+.change:hover {
+	background-color: #84DCCF;
+	cursor: pointer;
+}
+#clear-name, #refresh-replacements{
 	margin-top:0.5em;
+	margin-bottom: 0.5em;
 	width:96%;
 }
 
 #refresh-replacements {
-	margin-top: 1.5em;
 	font-size: 1.005em;
-	background-color: #D9B08C;
+	background-color: #EF626C;
 	border-radius: 0.5em;
 	color: white;
+	border-color: rgba(0, 0, 0, 0);
+	transition-duration: 0.3s;
 }
 
 #refresh-replacements:hover {
-	color: black;
-}
-
-#deactivate{
-	background-color: #116466;
-	color:white;
-	border:0px;
-	border-radius:0.5em;
-	transition-duration: 0.5s;
-	font-size: 1em;
-}
-#deactivate:hover{
-	color: #116466;
-	background-color: white;
-	cursor:pointer;
+	background-color: #D64953;
+	cursor: pointer;
 }
 
 input[type="text"]{
@@ -89,14 +88,11 @@ input[type="button"]{
 	margin-top: 0.8em;
 	margin-bottom: 0.8em;
 }
-
-input[type="submit"]{
-	cursor: pointer;
-	transition-duration: 0.5s;
+input[type="checkbox"]:hover{
+	cursor:pointer;
 }
 
-input[type="submit"]:hover {
-	background-color: #2C3531;
-	color: white;
-	border-radius: 0.4em;
+#src-code {
+	font-size: 0.8em;
+	text-align: right;
 }

@@ -1,4 +1,6 @@
 DEACTIVATE_KEY = 'deactivate-this-extension-pls-interactive-fics-yalla-bina';
+MUTATION_OBSERVER_KEY = 'observe-this-dom-pls-interactive-fics-yalla-bina';
+
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if ('input_word' in message){
@@ -11,6 +13,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 const replaceAll = () => {
 	chrome.storage.sync.get(null, replaceAllInStorage)
 	chrome.storage.local.get(null, replaceAllInStorage)
+}
+
+const observeChanges = () => {
+	chrome.storage.sync.get(MUTATION_OBSERVER_KEY, obj => {
+		if (obj[MUTATION_OBSERVER_KEY]) {
+			const observer = new MutationObserver((mutation_list, observer) => {
+				replaceAll()
+			})
+			observer.observe(document, {
+				subtree: true,
+				childList: true
+			})
+		}
+	})
 }
 
 const replaceAllInStorage = (items) => {
@@ -56,6 +72,7 @@ const replaceText = (textNode, input_word, replace_value) => {
 	textNode.nodeValue = node_value
 }
 
+
 function walk(node, v, p){
 	// I stole this function from here:
 	// http://is.gd/mwZp7E
@@ -78,3 +95,4 @@ function walk(node, v, p){
 }
 
 replaceAll()
+observeChanges()

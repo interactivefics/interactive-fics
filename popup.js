@@ -1,16 +1,19 @@
 DEACTIVATE_KEY = 'deactivate-this-extension-pls-interactive-fics-yalla-bina';
+MUTATION_OBSERVER_KEY = 'observe-this-dom-pls-interactive-fics-yalla-bina';
+
 
 document.addEventListener('DOMContentLoaded', function () {
 	// event listeners
 	document.getElementById('change-name-form').addEventListener('submit', changeName)
-	document.getElementById('clear-name-form').addEventListener('submit', clearName)
 	document.getElementById('replace-other-words-form').addEventListener('submit', replaceOther)
-	document.getElementById('refresh-replacements-form').addEventListener('submit', refreshReplacements)
 	document.getElementById('show-saved').addEventListener('click', loadSaved)
+	document.getElementById('refresh-replacements').addEventListener('click', refreshReplacements)
 	document.getElementById('deactivate').addEventListener('click', toggleDeactivate)
+	document.getElementById('enable-observer').addEventListener('click', toggleMutationObserver)
 
 	// set disable/enable button
 	setDeactivateKey()
+	setMutationObserverKey()
 });
 
 
@@ -19,11 +22,6 @@ const changeName = () => {
 	if (person) {
 		chrome.storage.sync.set({'person': person}, chrome.tabs.reload())
 	}
-}
-
-const clearName = () => {
-	chrome.storage.sync.remove('person', chrome.tabs.reload())
-	chrome.storage.local.remove('person', chrome.tabs.reload())
 }
 
 const replaceOther = () => {
@@ -72,7 +70,7 @@ const loadSavedItemsWrapper = isLocal => items => loadSavedItems(items, isLocal)
 const loadSavedItems = (items, isLocal) => {
 	const list = document.getElementById('saved-items-list')
 	for (var key in items) {
-		if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
+		if (key !== DEACTIVATE_KEY && key !== MUTATION_OBSERVER_KEY && !key.endsWith('_case_sensitive')) {
 			const label = key === 'person' ? 'Y/N' : key
 			const case_sensitive = !!items[`${key}_case_sensitive`]
 			const case_sensitive_string = case_sensitive ? 'case sensitive' : 'not case sensitive'
@@ -107,8 +105,10 @@ const setDeactivateKey = () => {
 		toggleDeactivateLabel(is_deactivated)
 
 		if (is_deactivated) {
-			const other_elements = document.getElementById('all-but-deactivate-wrapper')
-			other_elements.style.opacity = '0.5'
+			const other_elements = document.getElementsByClassName('fade-when-deactivate')
+			Array.from(other_elements).forEach(element => {
+				element.style.opacity = '0.5'
+			})
 			const input_elements = document.getElementsByTagName('INPUT')
 			Array.from(input_elements).forEach(input => {
 				if (input.id !== 'deactivate') {
@@ -119,10 +119,20 @@ const setDeactivateKey = () => {
 	})
 }
 
-const toggleDeactivateLabel = (reactivateBool) => {
-	const prefix = reactivateBool ? 'Re-activate' : 'Deactivate'
-	const deactivate_button = document.getElementById('deactivate')
-	deactivate_button.value = `${prefix} Extension`
+const setMutationObserverKey = () => {
+	chrome.storage.sync.get(MUTATION_OBSERVER_KEY, obj => {
+		const is_enabled = obj[MUTATION_OBSERVER_KEY]
+		toggleMutationObserverLabel(is_enabled)
+	})
+}
+
+const toggleDeactivateLabel = (isDeactivated) => {
+	document.getElementById('deactivate').checked = isDeactivated;
+
+}
+
+const toggleMutationObserverLabel = (isEnabled) => {
+	document.getElementById('enable-observer').checked = isEnabled;
 }
 
 const toggleDeactivate = () => {
@@ -140,5 +150,21 @@ const toggleDeactivate = () => {
 
 		chrome.tabs.reload()
 		window.close()
+	})
+}
+
+const toggleMutationObserver = () => {
+	chrome.storage.sync.get(MUTATION_OBSERVER_KEY, obj => {
+		const was_enabled = obj[MUTATION_OBSERVER_KEY]
+
+		if (was_enabled) {
+			chrome.storage.sync.remove(MUTATION_OBSERVER_KEY)
+		} else {
+			const new_object = {}
+			new_object[MUTATION_OBSERVER_KEY] = true
+			chrome.storage.sync.set(new_object)
+		}
+
+		chrome.tabs.reload()
 	})
 }
