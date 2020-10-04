@@ -74,23 +74,25 @@ const replaceText = (textNode, input_word, replace_value) => {
 
 
 function walk(node, v, p){
-	// I stole this function from here:
+	// I stole the base to this function from here:
 	// http://is.gd/mwZp7E
-	var child, next;
-	switch (node.nodeType){
-		case 1:  // Element
-		case 9:  // Document
-		case 11: // Document fragment
-			child = node.firstChild;
-			while (child){
-				next = child.nextSibling;
-				walk(child, v, p);
-				child = next;
-			}
-			break;
-		case 3: // Text node
-			replaceText(node, v, p);
-			break;
+	if (node.contentEditable != 'true' && node.type != 'textarea' && node.type != 'input') {
+		var child, next;
+		switch (node.nodeType){
+			case 1:  // Element
+			case 9:  // Document
+			case 11: // Document fragment
+				child = node.firstChild;
+				while (child){
+					next = child.nextSibling;
+					walk(child, v, p);
+					child = next;
+				}
+				break;
+			case 3: // Text node
+				replaceText(node, v, p);
+				break;
+		}
 	}
 }
 
