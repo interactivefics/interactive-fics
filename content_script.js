@@ -1,5 +1,6 @@
 DEACTIVATE_KEY = 'deactivate-this-extension-pls-interactive-fics-yalla-bina';
 MUTATION_OBSERVER_KEY = 'observe-this-dom-pls-interactive-fics-yalla-bina';
+PAUSED_KEY = 'pause-this-domain-pls-interactive-fics-yalla-bina';
 
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -30,7 +31,9 @@ const observeChanges = () => {
 }
 
 const replaceAllInStorage = (items) => {
-	if (!items[DEACTIVATE_KEY]) {
+	const hostname = window.location.hostname
+	const is_paused = items[PAUSED_KEY] && items[PAUSED_KEY].indexOf(hostname) !== -1
+	if (!items[DEACTIVATE_KEY] && !is_paused) {
 		for (var key in items) {
 			if (key == 'person') {
 				const regexp_y_n = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig
