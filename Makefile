@@ -3,3 +3,6 @@ zip-ff:
 
 zip-chrome:
 	zip chrome-update manifest.json icon*.png *.css *.js *.html
+
+zip-edge:
+	zip edge-update manifest.json icon*.png *.css *.js *.html
