@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "InteractiveFics",
   "author": "mariamrf",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "description": "Replaces Y/N & other variables in Reader Insert/second person fics with words of your choice.",
   "browser_action": {
     "default_title": "InteractiveFics",
@@ -37,5 +37,8 @@
   "background": {
     "page": "popup.html"
   },
-  "homepage_url": "https://interactivefics.tumblr.com"
+  "homepage_url": "https://interactivefics.tumblr.com",
+  "web_accessible_resources": [
+    "toucan-banner.png"
+  ]
 }
