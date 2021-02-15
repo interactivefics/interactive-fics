@@ -1,10 +1,35 @@
 body {
 	background-color: white;
 	color: #2C3531;
-	width: 270px;
-	padding:10px;
+	width: 332px;
 	font-family: 'Rubik', sans-serif;
+	margin: 0px;
 }
+
+#body-without-toucan {
+	padding:10px;
+	margin: 8px;
+}
+
+#toucan {
+	width: 100%;
+}
+
+#toucan a {
+	text-decoration: none;
+	font-weight: 800;
+}
+
+#toucan hr {
+	opacity: 0.3;
+
+}
+#toucan h4 {
+	margin: 10px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
 h1 {
 	font-size: 16px;
 }

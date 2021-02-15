@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	setDeactivateKey()
 	setMutationObserverKey()
 	setPauseDomainKey()
+	addToucanBanner()
 });
 
 
@@ -232,4 +233,10 @@ const togglePauseDomain = () => {
 			window.close()
 		})
 	})
+}
+
+const addToucanBanner = () => {
+	const img = document.createElement('img')
+	img.src = chrome.extension.getURL('toucan-banner.png')
+	document.getElementById('toucan-link').appendChild(img)
 }
