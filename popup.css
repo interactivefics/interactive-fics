@@ -1,7 +1,7 @@
 body {
 	background-color: white;
 	color: #2C3531;
-	width: 332px;
+	width: 380px;
 	font-family: 'Rubik', sans-serif;
 	margin: 0px;
 }
@@ -28,6 +28,11 @@ body {
 	margin: 10px;
 	text-transform: uppercase;
 	text-align: center;
+}
+
+#toucan img {
+	width: 100%;
+	margin-bottom: -3px;
 }
 
 h1 {
