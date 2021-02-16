@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "InteractiveFics",
   "author": "mariamrf",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "Replaces Y/N & other variables in Reader Insert/second person fics with words of your choice.",
   "browser_action": {
   	"default_title": "InteractiveFics",
