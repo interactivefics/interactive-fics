@@ -34,11 +34,32 @@ const replaceAllInStorage = (items) => {
 	const hostname = window.location.hostname
 	const is_paused = items[PAUSED_KEY] && items[PAUSED_KEY].indexOf(hostname) !== -1
 	if (!items[DEACTIVATE_KEY] && !is_paused) {
+		// Collect replacement keys with the length of the text they actually match
+		const replacements = []
 		for (var key in items) {
+			if (key == 'person') {
+				// matches "y/n" (3) / "(y/n)" / "[y/n]" — use the core length so it
+				// runs AFTER any longer custom pattern that contains it
+				replacements.push({ key, length: 3 })
+			} else if (
+				key !== DEACTIVATE_KEY &&
+				key !== MUTATION_OBSERVER_KEY &&
+				key !== PAUSED_KEY &&
+				!key.endsWith('_case_sensitive')
+			) {
+				replacements.push({ key, length: key.trim().length })
+			}
+		}
+
+		// Longest match first, so larger patterns are replaced before the
+		// shorter patterns they contain (e.g. "y/n/n" before "y/n")
+		replacements.sort((a, b) => b.length - a.length)
+
+		for (const { key } of replacements) {
 			if (key == 'person') {
 				const regexp_y_n = /\by\/n\b|\(y\/n\)|\[y\/n\]/ig
 				replace(regexp_y_n, items[key])
-			} else if (key !== DEACTIVATE_KEY && !key.endsWith('_case_sensitive')) {
+			} else {
 				escapeAndReplace(key, items[key], items[`${key}_case_sensitive`])
 			}
 		}

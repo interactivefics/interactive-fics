@@ -4,6 +4,11 @@
   "name": "InteractiveFics",
   "author": "mariamrf",
   "version": "5.2.3",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "interactivefics@local.test"
+    }
+  },
   "description": "Replaces Y/N & other variables in Reader Insert/second person fics with words of your choice.",
   "browser_action": {
   	"default_title": "InteractiveFics",
