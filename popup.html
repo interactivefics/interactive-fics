@@ -2,68 +2,72 @@
 <meta charset="UTF-8">
 <html>
 	<head>
-		<link href="https://fonts.googleapis.com/css?family=Rubik:wght@300;500;800&display=swap" rel="stylesheet">
-		<link href='popup.css' rel='stylesheet' type='text/css'>
+		<link href="popup.css" rel="stylesheet" type="text/css">
 		<script src="popup.js" type="text/javascript"></script>
 	</head>
 	<body>
-	<div id="body-without-toucan">
-	<div class="fade-when-deactivate">
-		<h1>Enter the name here:</h1>
-		<form id="change-name-form">
-			<input type="text" id="change-name-form-text"/>
-			<input type="submit" class="change" value="Change"/>
-		</form>
-		<details>
-			<summary>Need to replace something other than Y/N?</summary>
-			<p><small>This change will go away when you refresh/go to another page unless you check the box next to "Store this replacement".</small></p>
-			<p>
-				<form id="replace-other-words-form" class="other-words">
-					<label>
-						<span>Value (e.g. L/N, E/C, etc):</span>
-						<input type="text" id="replace-word" class="other"/>
-					</label>
-					<label>
-						<input type="checkbox" id="is-case-sensitive">Case sensitive
-					</label>
-					<br><br>
-					<label>
-						<span>Replace with:</span>
-						<input type="text" id="replace-with" class="replace-with"/>
-					</label>
-					<br>
-					<label>
-						<input type="checkbox" id="is-perm">Store this replacement
-					</label>
-					<input type="submit" class="change" value="Change">
-				</form>
-			</p>
-		</details>
-		<details>
-			<summary  id="show-saved">Stored Replacements</summary>
-			<p><small>To remove, simply click on a replacement. To change, re-enter in the previous section.</small></p>
-			<div class="saved-items-list-wrapper">
-				<ul id="saved-items-list">
-				</ul>
+		<div id="body-without-toucan">
+			<div class="popup-header">
+				<img src="icon.png" alt="InteractiveFics" class="popup-logo">
+				<span class="popup-title">InteractiveFics</span>
+				<button id="theme-toggle" class="theme-toggle" data-i18n-title="theme_help" title="Alterna entre o tema claro e o tema escuro.">🌙</button>
+				<button class="language-switcher" id="lang-toggle" title="Clique para trocar para inglês&#10;Click to switch to Portuguese" aria-label="Clique para trocar para inglês. Click to switch to Portuguese" data-tooltip="Clique para trocar para inglês&#10;Click to switch to Portuguese"><img src="flag-br.svg" class="flag" alt="Brasil"></button>
 			</div>
-		</details>
-	</div>
-	<div>
-		<details>
-			<summary>⚙️ Settings</summary>
-			<div class="fade-when-deactivate"><input type="checkbox" id="enable-observer"> Auto-detect page changes <small>(Wattpad support)</small><br></div>
-			<div class="fade-when-deactivate-only"><input type="checkbox" id="pause"> Pause extension on "<span id="this-url"></span>"<br></div>
-			<input type="checkbox" id="deactivate"> Deactivate extension
-		</details>
-	</div>
-	
-	<input type="button" id="refresh-replacements" class="fade-when-deactivate" value="Refresh Replacements"/>
-	
-	<a href="http://interactivefics.tumblr.com/ask" target="_blank">Feedback, suggestions and requests.</a></br>
-	<a href="https://interactivefics.tumblr.com/changelog" target="_blank">> What's new?</a></br>
-	<div id="src-code">
-		🤖 <a href="https://github.com/interactivefics/interactive-fics" target="_blank">source code</a> 🤖
-	</div>
-</div>
+
+			<div class="fade-when-deactivate">
+				<div class="card">
+					<div class="card-title" data-i18n="replace_other_q">➕ Precisa substituir algo além de Y/N?</div>
+					<p><small data-i18n="replace_other_hint">Essa alteração some ao atualizar ou trocar de página, a menos que você marque "Salvar esta substituição".</small></p>
+					<form id="replace-other-words-form" class="other-words">
+						<label>
+							<span data-i18n="value_label">Valor (ex.: L/N, E/C etc):</span>
+							<input type="text" id="replace-word" class="other">
+						</label>
+						<label>
+							<input type="checkbox" id="is-case-sensitive"><span data-i18n="case_sensitive">Diferenciar maiúsculas/minúsculas</span>
+						</label>
+						<br><br>
+						<label>
+							<span data-i18n="replace_with_label">Substituir por:</span>
+							<input type="text" id="replace-with" class="replace-with">
+						</label>
+						<br>
+						<label>
+							<input type="checkbox" id="is-perm" checked><span data-i18n="save_replacement">Salvar esta substituição</span>
+						</label>
+						<input type="submit" class="change" data-i18n-value="change_btn" value="Alterar">
+					</form>
+				</div>
+
+				<details class="card">
+					<summary id="show-saved">💾 <span data-i18n="saved_replacements">Substituições salvas</span></summary>
+					<p><small data-i18n="saved_hint">Use os botões para editar, proteger ou apagar. "Apagar tudo" mantém os itens protegidos.</small></p>
+					<input type="text" id="filter-saved" data-i18n-placeholder="filter_placeholder" placeholder="Filtrar..." style="width:100%;margin-bottom:6px;">
+					<input type="button" id="delete-all-saved" class="danger-action" data-i18n-value="delete_all" data-i18n-title="delete_all_title" value="Apagar tudo" title="Apaga todas as substituições salvas, mantendo as protegidas">
+					<input type="button" id="export-replacements" data-i18n-value="export" value="Exportar">
+					<input type="button" id="import-replacements" data-i18n-value="import" value="Importar">
+					<input type="file" id="import-file" accept="application/json" style="display:none">
+					<div class="saved-items-list-wrapper">
+						<ul id="saved-items-list"></ul>
+					</div>
+				</details>
+			</div>
+
+			<div>
+				<details class="card">
+					<summary>⚙️ <span data-i18n="settings">Configurações</span></summary>
+					<div class="section-title" data-i18n="section_general">Geral</div>
+					<div class="fade-when-deactivate"><label class="opt" data-i18n-title="observer_help"><span class="opt-icon">🔍</span><input type="checkbox" id="enable-observer"> <span data-i18n="detect_changes">Detectar mudanças na página</span></label></div>
+					<div class="fade-when-deactivate fade-when-pause"><label class="opt" data-i18n-title="copy_help"><span class="opt-icon">📋</span><input type="checkbox" id="enable-copy-domain"> <span data-i18n="enable_copy">Ativar Cópia em</span> <span class="url-pill" id="copy-url">—</span></label></div>
+					<div class="fade-when-deactivate-only"><label class="opt"><span class="opt-icon">⏸</span><input type="checkbox" id="pause"> <span data-i18n="pause_site">Pausar extensão em</span> <span class="url-pill" id="this-url">—</span></label></div>
+					<label class="opt opt-danger"><span class="opt-icon">⛔</span><input type="checkbox" id="deactivate" data-i18n-title="deactivate_title" title="Desliga todas as funcionalidades em todos os sites. A página precisa ser recarregada."> <span data-i18n="deactivate">Desativar extensão</span></label>
+					<div class="section-title">sangtacviet</div>
+					<div class="fade-when-deactivate"><label class="opt" data-i18n-title="stv_help"><span class="opt-icon">🔓</span><input type="checkbox" id="stv-decode"> <span data-i18n="decode_stv">Decodificar sangtacviet</span></label></div>
+					<div class="section-title" data-i18n="section_advanced">Avançado</div>
+					<div class="fade-when-deactivate"><label class="opt" data-i18n-title="review_help"><span class="opt-icon">✅</span><input type="checkbox" id="review-mode"> <span data-i18n="review_mode">Modo revisão</span></label></div>
+				</details>
+			</div>
+
+		</div>
 	</body>
 </html>

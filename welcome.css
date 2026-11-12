@@ -1,0 +1,14 @@
+:root { --accent: #14b8a6; --accent-dark: #0f766e; --text: #1f2937; --muted: #6b7280; --bg: #f8fafc; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: linear-gradient(135deg, #ecfeff, var(--bg)); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+.welcome-card { width: min(440px, 100%); padding: 32px; text-align: center; background: white; border: 1px solid #e5e7eb; border-radius: 20px; box-shadow: 0 12px 35px rgba(15, 118, 110, .14); }
+.logo { width: 88px; height: 88px; border-radius: 18px; }
+h1 { margin: 20px 0 8px; font-size: 25px; color: var(--accent-dark); }
+h1 span, p span { font-size: .78em; color: var(--muted); }
+p { margin: 0 0 24px; color: var(--text); line-height: 1.45; }
+.language-options { display: flex; gap: 12px; justify-content: center; }
+.language-options button { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: 1px solid #d1d5db; border-radius: 12px; background: white; color: var(--text); font-weight: 700; cursor: pointer; transition: .2s ease; }
+.language-options button:hover { border-color: var(--accent); color: var(--accent-dark); transform: translateY(-2px); }
+.language-options button:focus-visible { outline: 3px solid rgba(20, 184, 166, .35); outline-offset: 2px; }
+.language-options button:disabled { opacity: .65; cursor: wait; }
+.language-options img { width: 24px; height: 16px; border-radius: 2px; }
