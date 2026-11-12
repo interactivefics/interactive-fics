@@ -5,6 +5,9 @@ InteractiveFics is a browser extension for Reader Insert and second-person ficti
 It is designed for stories where the reader is represented by a variable, allowing the page to become more natural and personalized while reading.
 
 ## Features
+<img width="380" height="361" alt="v3" src="https://github.com/user-attachments/assets/824526d7-31cb-482d-836b-f1b0d8a24b45" />
+<img width="381" height="356" alt="v2" src="https://github.com/user-attachments/assets/43c4eb82-cf6d-4db9-b5ea-d2e0ece32044" />
+<img width="383" height="571" alt="v1" src="https://github.com/user-attachments/assets/ae062b82-366b-4eaf-b8ff-1f7deccdf7c5" />
 
 - Replace common placeholders such as `Y/N`, `Y/N`, `S/N`, and similar variants.
 - Create custom replacement rules for terms such as `L/N`, `E/C`, or any other placeholder.
