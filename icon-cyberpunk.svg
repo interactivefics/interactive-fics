@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0a1a"/>
+      <stop offset="1" stop-color="#12002e"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00f0ff"/>
+      <stop offset="0.5" stop-color="#ff2bd6"/>
+      <stop offset="1" stop-color="#7b2bff"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowBig" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00f0ff" stroke-opacity="0.12" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="96" fill="url(#grid)"/>
+
+  <!-- horizon grid lines -->
+  <g stroke="#ff2bd6" stroke-opacity="0.25" stroke-width="1">
+    <line x1="0" y1="360" x2="512" y2="360"/>
+    <line x1="0" y1="400" x2="512" y2="400" stroke-opacity="0.18"/>
+    <line x1="0" y1="440" x2="512" y2="440" stroke-opacity="0.12"/>
+  </g>
+
+  <!-- neon book/monitor shape -->
+  <g filter="url(#glowBig)">
+    <rect x="116" y="140" width="280" height="220" rx="24" fill="none" stroke="url(#neon)" stroke-width="8"/>
+    <line x1="256" y1="140" x2="256" y2="360" stroke="url(#neon)" stroke-width="6"/>
+  </g>
+
+  <!-- IF letters -->
+  <g font-family="'Segoe UI', Arial, sans-serif" font-weight="900" font-size="150" text-anchor="middle" filter="url(#glow)">
+    <text x="186" y="300" fill="#00f0ff">I</text>
+    <text x="326" y="300" fill="#ff2bd6">F</text>
+  </g>
+
+  <!-- scanlines -->
+  <g fill="#000000" opacity="0.18">
+    <rect x="0" y="0" width="512" height="4"/>
+    <rect x="0" y="24" width="512" height="4"/>
+    <rect x="0" y="48" width="512" height="4"/>
+    <rect x="0" y="72" width="512" height="4"/>
+    <rect x="0" y="96" width="512" height="4"/>
+    <rect x="0" y="120" width="512" height="4"/>
+    <rect x="0" y="144" width="512" height="4"/>
+    <rect x="0" y="168" width="512" height="4"/>
+    <rect x="0" y="192" width="512" height="4"/>
+    <rect x="0" y="216" width="512" height="4"/>
+    <rect x="0" y="240" width="512" height="4"/>
+    <rect x="0" y="264" width="512" height="4"/>
+    <rect x="0" y="288" width="512" height="4"/>
+    <rect x="0" y="312" width="512" height="4"/>
+    <rect x="0" y="336" width="512" height="4"/>
+    <rect x="0" y="360" width="512" height="4"/>
+    <rect x="0" y="384" width="512" height="4"/>
+    <rect x="0" y="408" width="512" height="4"/>
+    <rect x="0" y="432" width="512" height="4"/>
+    <rect x="0" y="456" width="512" height="4"/>
+    <rect x="0" y="480" width="512" height="4"/>
+  </g>
+
+  <!-- text -->
+  <text x="256" y="430" font-family="'Segoe UI', Arial, sans-serif" font-weight="700" font-size="34" text-anchor="middle" fill="#e0f2fe" letter-spacing="4" filter="url(#glow)">INTERACTIVEFICS</text>
+</svg>

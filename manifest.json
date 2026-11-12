@@ -1,18 +1,24 @@
 {
   "update_url": "https://clients2.google.com/service/update2/crx",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "InteractiveFics",
   "author": "mariamrf",
   "version": "5.2.3",
   "description": "Replaces Y/N & other variables in Reader Insert/second person fics with words of your choice.",
-  "browser_action": {
+  "action": {
   	"default_title": "InteractiveFics",
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "scripting",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
   ],
   "icons": {
     "16": "icon-16.png",
@@ -24,18 +30,51 @@
       "js": [
         "content_script.js"
       ],
-      "run_at": "document_idle",
+      "run_at": "document_start",
       "matches": [
         "*://*/*"
       ]
+    },
+    {
+      "js": [
+        "opentype.min.js",
+        "sangtacviet-decode.js"
+      ],
+      "run_at": "document_idle",
+      "matches": [
+        "*://sangtacviet.vip/*",
+        "*://*.sangtacviet.vip/*",
+        "*://sangtacviet.com/*",
+        "*://*.sangtacviet.com/*",
+        "*://sangtacviet.info/*",
+        "*://*.sangtacviet.info/*",
+        "*://sangtacviet.net/*",
+        "*://*.sangtacviet.net/*",
+        "*://sangtacviet.org/*",
+        "*://*.sangtacviet.org/*"
+      ]
     }
   ],
-  "incognito": "split",
-  "background": {
-    "page": "popup.html"
-  },
-  "homepage_url": "https://interactivefics.tumblr.com",
   "web_accessible_resources": [
-    "toucan-banner.png"
-  ]
+    {
+      "resources": ["opentype.min.js", "arial-ref.ttf"],
+      "matches": [
+        "*://sangtacviet.vip/*",
+        "*://*.sangtacviet.vip/*",
+        "*://sangtacviet.com/*",
+        "*://*.sangtacviet.com/*",
+        "*://sangtacviet.info/*",
+        "*://*.sangtacviet.info/*",
+        "*://sangtacviet.net/*",
+        "*://*.sangtacviet.net/*",
+        "*://sangtacviet.org/*",
+        "*://*.sangtacviet.org/*"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "incognito": "split",
+  "homepage_url": "https://interactivefics.tumblr.com"
 }
